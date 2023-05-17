@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component //section8. 스프링부트가 제공하는 기본 오류 매커니즘을 사용하기 위해서 주석처리 해뒀다.(BasicErrorController가 자동으로 등록한다.)
 public class WebServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> { //implements WebServerFactoryCustomizer<ConfigurableWebServerFactory>  무조건 구현~
 
+    //여기는 api가 아닌 예외 처리
     //굳이 ServletController.java 없어도 되는듯;
     //서블릿이 보여주는 기본 에러페이지는 안예뻐
     //그래서 아래 에러가 터지면 보여지는 화면을 지정해서 만든 에러페이지로 보여 줄 수 있다.

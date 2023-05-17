@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(basePackages = "hello.exception.api") //이 패키지에서 나온 에러만 처리하겠다!
 public class ExControllerAdvice {
 
+    //여기는 api에 대한 예외 처리
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public ErrorResult illegalExHandle(IllegalArgumentException e) {
