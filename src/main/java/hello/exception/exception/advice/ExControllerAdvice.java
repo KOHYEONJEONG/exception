@@ -15,7 +15,11 @@ public class ExControllerAdvice {
 
     //여기는 api에 대한 예외 처리
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    /**  @ResponseStatus(HttpStatus.BAD_REQUEST)을 해줌으로써 응답 상태코드를 지정해서 보낼 수 있다.(안 그러면 200으로 상태코드가 나간다)
+     * ㄴ 400대는 클라리언트가 잘못한거
+     * ㄴ 500대는 서버가 잘못한 거
+     * */
+    @ResponseStatus(HttpStatus.BAD_REQUEST) //400
     @ExceptionHandler(IllegalArgumentException.class)
     public ErrorResult illegalExHandle(IllegalArgumentException e) {
         log.error("[exceptionHandle] ex", e);
