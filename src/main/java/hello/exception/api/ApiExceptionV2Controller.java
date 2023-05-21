@@ -14,6 +14,10 @@ public class ApiExceptionV2Controller {
 
     //ExControllerAdvice.java에서 예외처리를 관리하게 따로 빼뒀다.
 
+    //순서
+    // ㄴ 컨트롤러 예외 터짐 ->  exceptionResolver (@ExceptionHandler) 찾아서 호출! -> 정상 리턴 -> 그럼 200 즉 정상 로직 이기때문에
+    // ㄴ 우리가 기대하는건 상태코드까지 제대로 반영해야겠지?
+    // 그래서 @ResponseStatus(HttpStatus.BAD_REQUEST) 를 붙여준다.
     @GetMapping("/api2/members/{id}")
     public MemberDto getMember(@PathVariable("id") String id) {
         if (id.equals("ex")) {

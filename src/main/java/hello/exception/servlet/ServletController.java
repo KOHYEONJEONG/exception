@@ -11,6 +11,8 @@ import java.io.IOException;
 @Controller
 public class ServletController {//시작
 
+    //WebServerCustomizer.java
+
     //WAS(sendError 호출 기록 확인) <- 필터 <- 서블릿 <- 인터셉터 <- 컨트롤러 (response.sendError())
     //response라는게 서블릿 컨테이너까지 절달된다.
 

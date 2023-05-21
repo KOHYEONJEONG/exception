@@ -1,15 +1,21 @@
 package hello.exception.servlet;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Controller
-public class ErrorPageController {
+public class ErrorPageController {//HTML 오류 페이지(JSON 예외는 일로 오면 안돼!, 정상흐름이지만 API 예러는 JSON으로 예외 처리해서 ㅂ내야해)
 
 
     //RequestDispatcher 상수로 정의되어 있음( 그냥 이 클래스에 들어가서 필요한것만 복사해 옴)
@@ -29,12 +35,27 @@ public class ErrorPageController {
         return "error-page/404";
     }
 
+   //ErrorPage errorPageEx = new ErrorPage(RuntimeException.class, "/error-page/500");
     @RequestMapping("/error-page/500")
     public String errorPage500(HttpServletRequest request, HttpServletResponse response){
         log.info("errorPage 500");
         printErrorInfo(request);
         return "error-page/500";
     }
+
+    //ErrorPage errorPageEx = new ErrorPage(RuntimeException.class, "/error-page/500");
+    //JSON 예외는 produces로 구분한다
+    @RequestMapping(value = "/error-page/500", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> errorPage500Api(HttpServletRequest request, HttpServletResponse response) {
+        log.info("API errorPage 500");
+        Map<String, Object> result = new HashMap<>();
+        Exception ex = (Exception) request.getAttribute(ERROR_EXCEPTION);
+        result.put("status", request.getAttribute(ERROR_STATUS_CODE));
+        result.put("message", ex.getMessage());
+        Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        return new ResponseEntity(result, HttpStatus.valueOf(statusCode));
+    }
+
 
     //바로 에러페이지로 안가고 에러 정보를 살펴보기 위해서 만든 메서드
     private void printErrorInfo(HttpServletRequest request){
