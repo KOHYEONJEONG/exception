@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice("hello.exception.controller") // 지정된 패키지에서만 적용
 public class GlobalCatcher {
+
     @ExceptionHandler(Exception.class)
     public String catcher(Exception ex, Model m) {
         m.addAttribute("ex", ex);

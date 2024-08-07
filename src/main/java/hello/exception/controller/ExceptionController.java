@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class ExceptionController {
 
+    /**
+     * ExceptionController 터지는 에러 페이지 지정은
+     * GlobalCatcher 에서 관리한다.
+     *  - @ControllerAdvice
+     * */
+
     @RequestMapping("/member")
     public String member() throws Exception {
         return "basic/main";

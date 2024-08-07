@@ -31,7 +31,9 @@ public class ExControllerAdvice_API {
     @ExceptionHandler(IllegalArgumentException.class) //자식오류
     public ErrorResult illegalExHandle(IllegalArgumentException e) {
 
-        /** ErrorResult는 내가 만든 VO, 에레에 대한 코드와 메시지 보내기 위한 간단한 필드가 있다.*/
+        /**
+         * ErrorResult 내가 만든 VO,
+         * 에러에 대한 코드와 메시지 보내기 위한 간단한 필드가 있다.*/
 
         log.error("[exceptionHandle] ex", e);
         return new ErrorResult("BAD", e.getMessage());
@@ -42,7 +44,8 @@ public class ExControllerAdvice_API {
         ErrorResult errorResult = new ErrorResult("USER-EX", e.getMessage());
         return new ResponseEntity<>(errorResult, HttpStatus.BAD_REQUEST);
     }
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)//500
     @ExceptionHandler
     public ErrorResult exHandle(Exception e) {
         log.error("[exceptionHandle] ex", e);
