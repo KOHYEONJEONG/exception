@@ -51,6 +51,7 @@ public class ApiExceptionController {
 
         if (id.equals("user-ex")) {
             throw new UserException("사용자 오류");
+            //UserHandlerExceptionResolver.java 에서 사용자 오류 처리
         }
 
         //예외가 아닐 시
@@ -60,7 +61,7 @@ public class ApiExceptionController {
     @GetMapping("response-status-ex1")
     public String responseStatusEx1(){
 
-        //내가 만든 리졸버
+        //내가 만든 리졸버(스프링에서 제공하는 방식)
         throw new BadRequestException();
     }
 
@@ -68,6 +69,12 @@ public class ApiExceptionController {
     public String responseStatusEx2(){
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.bad", new IllegalArgumentException());
+    }
+
+    @GetMapping("/default-handler-ex")
+    public String defaultHandlerException(@RequestParam Integer data){
+
+        return "ok";
     }
 
     @Data
